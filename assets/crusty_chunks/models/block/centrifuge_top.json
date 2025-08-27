@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "crusty_chunks:block/largeconveyorinput",
+    "up": "crusty_chunks:block/centrifugetop",
+    "north": "crusty_chunks:block/centrifugetopside",
+    "east": "crusty_chunks:block/centrifugetopside",
+    "south": "crusty_chunks:block/centrifugetopside",
+    "west": "crusty_chunks:block/centrifugetopside",
+    "particle": "crusty_chunks:block/largeconveyorinput"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "crusty_chunks:custom/conveyor_1",
+  "textures": {
+    "all": "crusty_chunks:block/conveyor",
+    "particle": "crusty_chunks:block/solidsteel",
+    "1": "crusty_chunks:block/conveyor"
+  },
+  "render_type": "solid"
+}

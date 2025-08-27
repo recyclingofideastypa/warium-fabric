@@ -1,0 +1,9 @@
+{
+  "parent": "crusty_chunks:custom/dropoff",
+  "textures": {
+    "all": "crusty_chunks:block/dropoff",
+    "particle": "crusty_chunks:block/solidsteel",
+    "1": "crusty_chunks:block/dropoff"
+  },
+  "render_type": "solid"
+}
