@@ -1,0 +1,142 @@
+package net.mcreator.crustychunks.procedures;
+
+import net.mcreator.crustychunks.entity.GenericLargeBulletGreenEntity;
+import net.mcreator.crustychunks.entity.GenericlargeBulletEntity;
+import net.mcreator.crustychunks.entity.HugeBulletFireEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraftforge.registries.ForgeRegistries;
+
+public class GenericArmorBypassProcedure {
+   public static void execute(LevelAccessor world, double x, double y, double z, Entity entity, Entity immediatesourceentity) {
+      if (entity != null && immediatesourceentity != null) {
+         double Health = 0.0D;
+         double penetrationmult = 0.0D;
+         double damagemultiplier = 0.0D;
+         if (immediatesourceentity instanceof HugeBulletFireEntity) {
+            penetrationmult = 2.0D;
+            damagemultiplier = 3.0D;
+         } else if (!(immediatesourceentity instanceof GenericlargeBulletEntity) && !(immediatesourceentity instanceof GenericLargeBulletGreenEntity)) {
+            penetrationmult = 0.0D;
+            damagemultiplier = 1.0D;
+         } else {
+            penetrationmult = 0.0D;
+            damagemultiplier = 1.5D;
+         }
+
+         Level _level;
+         if (!entity.m_6095_().m_204039_(TagKey.m_203882_(Registries.f_256939_, new ResourceLocation("crusty_chunks:bulletproof")))) {
+            if (world instanceof Level) {
+               _level = (Level)world;
+               if (!_level.m_5776_()) {
+                  _level.m_5594_((Player)null, BlockPos.m_274561_(x, y, z), (SoundEvent)ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("crusty_chunks:wizz")), SoundSource.NEUTRAL, 3.0F, 1.0F);
+               } else {
+                  _level.m_7785_(x, y, z, (SoundEvent)ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("crusty_chunks:wizz")), SoundSource.NEUTRAL, 3.0F, 1.0F, false);
+               }
+            }
+
+            ItemStack var10000;
+            LivingEntity _entGetArmor;
+            if (entity instanceof LivingEntity) {
+               _entGetArmor = (LivingEntity)entity;
+               var10000 = _entGetArmor.m_6844_(EquipmentSlot.CHEST);
+            } else {
+               var10000 = ItemStack.f_41583_;
+            }
+
+            ItemStack _ist;
+            LivingEntity _entGetArmor;
+            if (var10000.m_204117_(ItemTags.create(new ResourceLocation("crusty_chunks:bulletarmor")))) {
+               entity.m_6469_(new DamageSource(world.m_9598_().m_175515_(Registries.f_268580_).m_246971_(ResourceKey.m_135785_(Registries.f_268580_, new ResourceLocation("crusty_chunks:armor_bypass_damage")))), (float)(4.0D * damagemultiplier + penetrationmult));
+               if (entity instanceof LivingEntity) {
+                  _entGetArmor = (LivingEntity)entity;
+                  var10000 = _entGetArmor.m_6844_(EquipmentSlot.CHEST);
+               } else {
+                  var10000 = ItemStack.f_41583_;
+               }
+
+               _ist = var10000;
+               if (_ist.m_220157_(4, RandomSource.m_216327_(), (ServerPlayer)null)) {
+                  _ist.m_41774_(1);
+                  _ist.m_41721_(0);
+               }
+            } else {
+               entity.m_6469_(new DamageSource(world.m_9598_().m_175515_(Registries.f_268580_).m_246971_(ResourceKey.m_135785_(Registries.f_268580_, new ResourceLocation("crusty_chunks:armor_bypass_damage")))), (float)(6.0D * damagemultiplier - penetrationmult));
+            }
+
+            if (immediatesourceentity.m_20186_() - immediatesourceentity.m_20154_().f_82480_ * Math.sqrt(Math.pow(entity.m_20185_() - immediatesourceentity.m_20185_(), 2.0D) + Math.pow(entity.m_20189_() - immediatesourceentity.m_20189_(), 2.0D)) > entity.m_20186_() + 1.55D) {
+               if (entity instanceof LivingEntity) {
+                  _entGetArmor = (LivingEntity)entity;
+                  var10000 = _entGetArmor.m_6844_(EquipmentSlot.HEAD);
+               } else {
+                  var10000 = ItemStack.f_41583_;
+               }
+
+               if (!var10000.m_204117_(ItemTags.create(new ResourceLocation("crusty_chunks:bulletarmor")))) {
+                  entity.m_6469_(new DamageSource(world.m_9598_().m_175515_(Registries.f_268580_).m_246971_(ResourceKey.m_135785_(Registries.f_268580_, new ResourceLocation("crusty_chunks:armor_bypass_damage")))), (float)(6.0D * damagemultiplier - penetrationmult));
+               } else {
+                  entity.m_6469_(new DamageSource(world.m_9598_().m_175515_(Registries.f_268580_).m_246971_(ResourceKey.m_135785_(Registries.f_268580_, new ResourceLocation("crusty_chunks:armor_bypass_damage")))), (float)(3.0D * damagemultiplier + penetrationmult));
+                  if (entity instanceof LivingEntity) {
+                     _entGetArmor = (LivingEntity)entity;
+                     var10000 = _entGetArmor.m_6844_(EquipmentSlot.HEAD);
+                  } else {
+                     var10000 = ItemStack.f_41583_;
+                  }
+
+                  _ist = var10000;
+                  if (_ist.m_220157_(7, RandomSource.m_216327_(), (ServerPlayer)null)) {
+                     _ist.m_41774_(1);
+                     _ist.m_41721_(0);
+                  }
+               }
+            }
+         } else {
+            if (Mth.m_216271_(RandomSource.m_216327_(), 1, 2) == 1) {
+               if (world instanceof Level) {
+                  _level = (Level)world;
+                  if (!_level.m_5776_()) {
+                     _level.m_5594_((Player)null, BlockPos.m_274561_(x, y, z), (SoundEvent)ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("block.anvil.place")), SoundSource.NEUTRAL, 2.0F, 1.0F);
+                  } else {
+                     _level.m_7785_(x, y, z, (SoundEvent)ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("block.anvil.place")), SoundSource.NEUTRAL, 2.0F, 1.0F, false);
+                  }
+               }
+            } else if (world instanceof Level) {
+               _level = (Level)world;
+               if (!_level.m_5776_()) {
+                  _level.m_5594_((Player)null, BlockPos.m_274561_(x, y, z), (SoundEvent)ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("crusty_chunks:bounce")), SoundSource.NEUTRAL, 2.0F, 1.0F);
+               } else {
+                  _level.m_7785_(x, y, z, (SoundEvent)ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("crusty_chunks:bounce")), SoundSource.NEUTRAL, 2.0F, 1.0F, false);
+               }
+            }
+
+            if (world instanceof ServerLevel) {
+               ServerLevel _level = (ServerLevel)world;
+               _level.m_8767_(ParticleTypes.f_123759_, x, y, z, 5, 1.0D, 3.0D, 1.0D, 0.05D);
+            }
+
+            entity.m_6469_(new DamageSource(world.m_9598_().m_175515_(Registries.f_268580_).m_246971_(DamageTypes.f_268739_)), (float)(4.0D * damagemultiplier + penetrationmult));
+         }
+
+      }
+   }
+}
