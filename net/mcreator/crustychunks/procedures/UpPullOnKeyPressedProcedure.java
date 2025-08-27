@@ -1,0 +1,85 @@
+package net.mcreator.crustychunks.procedures;
+
+import net.mcreator.crustychunks.init.CrustyChunksModItems;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraftforge.registries.ForgeRegistries;
+
+public class UpPullOnKeyPressedProcedure {
+   public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
+      if (entity != null) {
+         ItemStack var10000;
+         if (entity instanceof LivingEntity) {
+            LivingEntity _livEnt = (LivingEntity)entity;
+            var10000 = _livEnt.m_21205_();
+         } else {
+            var10000 = ItemStack.f_41583_;
+         }
+
+         if (var10000.m_41720_() == CrustyChunksModItems.AIMER.get()) {
+            if (entity instanceof LivingEntity) {
+               LivingEntity _livEnt = (LivingEntity)entity;
+               var10000 = _livEnt.m_21205_();
+            } else {
+               var10000 = ItemStack.f_41583_;
+            }
+
+            if (var10000.m_41784_().m_128459_("Pitch") <= 44.0D) {
+               LivingEntity _livEnt;
+               if (entity instanceof LivingEntity) {
+                  _livEnt = (LivingEntity)entity;
+                  var10000 = _livEnt.m_21205_();
+               } else {
+                  var10000 = ItemStack.f_41583_;
+               }
+
+               CompoundTag var15 = var10000.m_41784_();
+               ItemStack var10002;
+               if (entity instanceof LivingEntity) {
+                  _livEnt = (LivingEntity)entity;
+                  var10002 = _livEnt.m_21205_();
+               } else {
+                  var10002 = ItemStack.f_41583_;
+               }
+
+               var15.m_128347_("Pitch", var10002.m_41784_().m_128459_("Pitch") + 0.5D);
+               if (entity instanceof Player) {
+                  Player _player = (Player)entity;
+                  if (!_player.m_9236_().m_5776_()) {
+                     ItemStack var10001;
+                     if (entity instanceof LivingEntity) {
+                        LivingEntity _livEnt = (LivingEntity)entity;
+                        var10001 = _livEnt.m_21205_();
+                     } else {
+                        var10001 = ItemStack.f_41583_;
+                     }
+
+                     CompoundTag var14 = var10001.m_41784_();
+                     _player.m_5661_(Component.m_237113_("§8Pitch:§6" + var14.m_128459_("Pitch")), true);
+                  }
+               }
+
+               if (world instanceof Level) {
+                  Level _level = (Level)world;
+                  if (!_level.m_5776_()) {
+                     _level.m_5594_((Player)null, BlockPos.m_274561_(x, y, z), (SoundEvent)ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("ui.button.click")), SoundSource.NEUTRAL, 1.0F, 1.0F);
+                  } else {
+                     _level.m_7785_(x, y, z, (SoundEvent)ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("ui.button.click")), SoundSource.NEUTRAL, 1.0F, 1.0F, false);
+                  }
+               }
+            }
+         }
+
+      }
+   }
+}
