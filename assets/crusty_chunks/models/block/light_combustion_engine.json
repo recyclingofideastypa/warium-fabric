@@ -1,0 +1,9 @@
+{
+  "parent": "crusty_chunks:custom/mediumengine",
+  "textures": {
+    "all": "crusty_chunks:block/mediumengine",
+    "particle": "crusty_chunks:block/tankbreech",
+    "1": "crusty_chunks:block/mediumengine"
+  },
+  "render_type": "cutout_mipped"
+}
