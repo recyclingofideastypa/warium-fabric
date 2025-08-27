@@ -1,0 +1,11 @@
+{
+  "parent": "crusty_chunks:custom/barrel",
+  "textures": {
+    "all": "crusty_chunks:block/smokebombside",
+    "particle": "crusty_chunks:block/smokebombside",
+    "0": "crusty_chunks:block/bombbottom",
+    "1": "crusty_chunks:block/bombtop",
+    "2": "crusty_chunks:block/smokebombside"
+  },
+  "render_type": "solid"
+}
